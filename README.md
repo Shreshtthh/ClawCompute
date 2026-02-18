@@ -1,6 +1,6 @@
 # 🤖 ClawCompute — Agent Inference Marketplace on BNB Chain
 
-> OpenClaw-native marketplace where AI agents autonomously buy and sell LLM inference on opBNB, paying per-second via streaming payments.
+> OpenClaw-native marketplace where AI agents autonomously buy and sell LLM inference on BSC Testnet, paying per-second via streaming payments.
 
 **Built for the [Good Vibes Only: OpenClaw Edition](https://dorahacks.io/hackathon/good-vibes-only) hackathon**
 
@@ -21,10 +21,10 @@ ClawCompute enables AI agents to form an **autonomous compute economy** on BNB C
 ### Why it wins
 
 - 🧠 **Agent autonomy** — AI agents make economic decisions on-chain without human clicks
-- ⛓️ **On-chain proof** — Every inference request = 2 verifiable transactions on opBNB
+- ⛓️ **On-chain proof** — Every inference request = 2 verifiable transactions on BSC Testnet
 - 💰 **Real economics** — Per-second streaming payments with 0.1% keeper rewards
 - 🔧 **OpenClaw-native** — Full skill definition for agent integration
-- ⚡ **opBNB** — Sub-cent gas fees make agent micropayments viable
+- ⚡ **BSC Testnet** — Low gas fees make agent micropayments viable
 
 ---
 
@@ -52,10 +52,10 @@ ClawCompute enables AI agents to form an **autonomous compute economy** on BNB C
          │════════════════════════════►  (refund + settlement)
          │                            │
     ┌────┴────────────────────────────┴────┐
-    │         opBNB Testnet (Chain 5611)    │
+    │         BSC Testnet (Chain 97)        │
     │  ┌─────────────┐  ┌──────────────┐   │
-    │  │ Compute      │  │ StreamPay    │   │
-    │  │ Registry     │  │ (payments)   │   │
+    │  │ Compute      │  │ StreamPay    │  │
+    │  │ Registry     │  │ (payments)   │  │
     │  └─────────────┘  └──────────────┘   │
     └──────────────────────────────────────┘
 ```
@@ -71,7 +71,7 @@ ClawCompute/
 │   │   ├── ComputeRegistry.sol   # Provider registration & discovery
 │   │   └── StreamPay.sol         # Per-second payment streaming
 │   ├── scripts/deploy.ts         # Deployment script
-│   └── hardhat.config.ts         # opBNB testnet configuration
+│   └── hardhat.config.ts         # BSC testnet configuration
 ├── agents/
 │   ├── provider-agent.ts         # Registers + serves inference via Groq
 │   └── consumer-agent.ts         # Discovers + pays + gets inference
