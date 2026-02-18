@@ -1,0 +1,10 @@
+{
+  "network": "bscTestnet",
+  "chainId": 97,
+  "deployer": "0x92cbb44a94bef56944929e25077f3a4f4f7b95e6",
+  "contracts": {
+    "ComputeRegistry": "0x27c880836d63ed6d786c86ec465dfaf356e7b8f5",
+    "StreamPay": "0xb3666a3515673ef9d72bace59c279a960fad4cb5"
+  },
+  "deployedAt": "2026-02-18T17:42:11.091Z"
+}
