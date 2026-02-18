@@ -6,7 +6,7 @@
 
 ![License](https://img.shields.io/badge/license-MIT-blue)
 ![Solidity](https://img.shields.io/badge/Solidity-0.8.24-orange)
-![Chain](https://img.shields.io/badge/Chain-opBNB%20Testnet-yellow)
+![Chain](https://img.shields.io/badge/Chain-BSC%20Testnet-yellow)
 
 ---
 
@@ -108,7 +108,7 @@ cd contracts && npm install && cd ..
 Edit `.env` at the project root:
 ```env
 PRIVATE_KEY=0xYOUR_PRIVATE_KEY_HERE
-BASE_SEPOLIA_RPC=https://sepolia.base.org
+BSC_TESTNET_RPC=https://data-seed-prebsc-1-s1.binance.org:8545
 GROQ_API_KEY=gsk_YOUR_GROQ_KEY_HERE
 ```
 
@@ -116,7 +116,7 @@ GROQ_API_KEY=gsk_YOUR_GROQ_KEY_HERE
 
 ```bash
 npm run compile
-npm run deploy  # Deploys to Base Sepolia
+npm run deploy  # Deploys to BSC Testnet
 ```
 
 ### 4. Run the Demo
@@ -160,19 +160,19 @@ npm run discover
 
 ---
 
-## 🔗 Deployed Contracts (opBNB Testnet)
+## 🔗 Deployed Contracts (BSC Testnet)
 
 | Contract | Address |
 |----------|---------|
-| ComputeRegistry | *Deployed after `npm run deploy`* |
-| StreamPay | *Deployed after `npm run deploy`* |
+| ComputeRegistry | `0x27c880836d63ed6d786c86ec465dfaf356e7b8f5` |
+| StreamPay | `0xb3666a3515673ef9d72bace59c279a960fad4cb5` |
 
 ---
 
 ## 🛠️ Tech Stack
 
 - **Smart Contracts:** Solidity 0.8.24 + OpenZeppelin + Hardhat 2
-- **Chain:** opBNB Testnet (Chain ID 5611)
+- **Chain:** BSC Testnet (Chain ID 97)
 - **Agent Runtime:** TypeScript + Viem
 - **LLM Backend:** Groq API (free tier, Llama 3.3 70B)
 - **Agent Framework:** OpenClaw skill format
