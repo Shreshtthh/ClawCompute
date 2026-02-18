@@ -1,0 +1,26 @@
+{
+    "name": "clawcompute",
+    "version": "1.0.0",
+    "description": "Agent Inference Marketplace on BNB Chain — Buy and sell LLM inference with per-second streaming payments on opBNB",
+    "private": true,
+    "scripts": {
+        "provider": "npx tsx agents/provider-agent.ts",
+        "consumer": "npx tsx agents/consumer-agent.ts",
+        "discover": "npx tsx openclaw-skill/claw-compute/scripts/discover-providers.ts",
+        "balance": "npx tsx openclaw-skill/claw-compute/scripts/check-balance.ts",
+        "deploy": "cd contracts && npx hardhat run scripts/deploy.ts --network baseSepolia",
+        "deploy:opbnb": "cd contracts && npx hardhat run scripts/deploy.ts --network opbnbTestnet",
+        "deploy:local": "cd contracts && npx hardhat run scripts/deploy.ts --network hardhat",
+        "compile": "cd contracts && npx hardhat compile",
+        "test": "cd contracts && npx hardhat test"
+    },
+    "dependencies": {
+        "dotenv": "^16.4.0",
+        "viem": "^2.21.0"
+    },
+    "devDependencies": {
+        "tsx": "^4.7.0",
+        "typescript": "^5.3.0",
+        "@types/node": "^20.10.0"
+    }
+}
