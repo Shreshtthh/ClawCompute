@@ -188,6 +188,19 @@ ClawCompute demonstrates the first autonomous agent compute marketplace on BNB C
 
 ---
 
+## 🤖 AI Development Logs
+
+This project leveraged **AI-assisted development** to accelerate the build process, with human review and decision-making at every step. Full session logs are available in [`ailogs/`](ailogs/).
+
+| Session | Focus |
+|---------|-------|
+| [01 — Ideation](ailogs/01-ideation-architecture.md) | Hackathon analysis, idea selection, system design |
+| [02 — Contracts](ailogs/02-smart-contracts.md) | ComputeRegistry + StreamPay development |
+| [03 — Agents](ailogs/03-agent-development.md) | Provider and Consumer agent implementation |
+| [04 — Deployment](ailogs/04-deployment-demo.md) | BSC Testnet deployment, end-to-end demo |
+
+---
+
 ## 📄 License
 
 MIT
