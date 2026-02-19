@@ -24,7 +24,8 @@ import * as http from "http";
 // ============ Configuration ============
 const MODEL_NAME = process.env.MODEL_NAME || "llama-3.3-70b-versatile";
 const PRICE_PER_SECOND = process.env.PRICE_PER_SECOND || "0.0001"; // tBNB per second
-const PORT = parseInt(process.env.PROVIDER_PORT || "3001");
+const PORT = parseInt(process.env.PORT || process.env.PROVIDER_PORT || "3001");
+const ENDPOINT_URL = process.env.ENDPOINT_URL || `http://localhost:${PORT}/inference`;
 
 // ============ Main ============
 async function main() {
@@ -53,34 +54,94 @@ async function main() {
     console.log(`💰 Balance: ${formatEther(balance)} tBNB`);
     console.log(`🤖 Model: ${MODEL_NAME}`);
     console.log(`💲 Price: ${PRICE_PER_SECOND} tBNB/second`);
-    console.log(`🌐 Endpoint: http://localhost:${PORT}/inference`);
+    console.log(`🌐 Endpoint: ${ENDPOINT_URL}`);
     console.log("");
 
     // ============ Step 1: Register on-chain ============
-    console.log("📝 Registering as compute provider on opBNB...");
+    console.log("📝 Checking existing registrations...");
 
     try {
         const priceWei = parseEther(PRICE_PER_SECOND);
 
-        const hash = await walletClient.writeContract({
+        // 1. Check if we already have an active provider for this model
+        // We get all providers for this wallet
+        const providerIds = await publicClient.readContract({
             address: registryAddress,
             abi: registryABI,
-            functionName: "registerProvider",
-            args: [MODEL_NAME, priceWei, `http://localhost:${PORT}/inference`, 0n], // serviceType 0 = compute
-        });
+            functionName: "getWalletProviders",
+            args: [account.address],
+        }) as bigint[];
 
-        console.log(`   ⏳ Tx submitted: ${hash}`);
-        const receipt = await publicClient.waitForTransactionReceipt({ hash });
-        console.log(`   ✅ Registered! Block: ${receipt.blockNumber}`);
-        console.log(`   🔗 Explorer: https://testnet.opbnbscan.com/tx/${hash}`);
-    } catch (error: any) {
-        // If already registered, that's fine
-        if (error.message?.includes("already")) {
-            console.log("   ℹ️  Already registered, continuing...");
-        } else {
-            console.error(`   ❌ Registration failed: ${error.message}`);
-            console.log("   Continuing anyway (may already be registered)...");
+        let existingProviderId: bigint | null = null;
+        let needsUpdate = false;
+
+        if (providerIds && providerIds.length > 0) {
+            console.log(`   Found ${providerIds.length} existing provider IDs.`);
+
+            // Check the latest one
+            for (let i = providerIds.length - 1; i >= 0; i--) {
+                const pid = providerIds[i];
+                const provider = await publicClient.readContract({
+                    address: registryAddress,
+                    abi: registryABI,
+                    functionName: "getProvider",
+                    args: [pid],
+                }) as any;
+
+                const [pWallet, pModel, pPrice, pEndpoint, pActive] = provider;
+
+                // If it looks like this agent
+                // Note: We might want to allow multiple models per wallet, so we check model name
+                // If model name matches, we assume it's this agent.
+                if (pModel === MODEL_NAME && pActive) {
+                    existingProviderId = pid;
+                    console.log(`   ✅ Found active provider #${pid} for model '${MODEL_NAME}'`);
+
+                    // Check if we need to update params
+                    if (pPrice !== priceWei || pEndpoint !== ENDPOINT_URL) {
+                        console.log(`   ⚠️ Config changed! On-chain: ${pEndpoint} @ ${formatEther(pPrice)} BNB`);
+                        console.log(`   🆕 New Config:   ${ENDPOINT_URL} @ ${PRICE_PER_SECOND} BNB`);
+                        needsUpdate = true;
+                    }
+                    break;
+                }
+            }
         }
+
+        if (existingProviderId !== null) {
+            if (needsUpdate) {
+                console.log(`   🔄 Updating Provider #${existingProviderId}...`);
+                const hash = await walletClient.writeContract({
+                    address: registryAddress,
+                    abi: registryABI,
+                    functionName: "updateProvider",
+                    args: [existingProviderId, priceWei, ENDPOINT_URL, true],
+                });
+                console.log(`   ⏳ Update Tx: ${hash}`);
+                await publicClient.waitForTransactionReceipt({ hash });
+                console.log("   ✅ Provider updated successfully.");
+            } else {
+                console.log("   ✨ Provider is already up to date. Skipping registration.");
+            }
+        } else {
+            // Register new
+            console.log(`   🆕 Registering NEW provider for '${MODEL_NAME}'...`);
+            const hash = await walletClient.writeContract({
+                address: registryAddress,
+                abi: registryABI,
+                functionName: "registerProvider",
+                args: [MODEL_NAME, priceWei, ENDPOINT_URL, 0n], // serviceType 0 = compute
+            });
+
+            console.log(`   ⏳ Tx submitted: ${hash}`);
+            const receipt = await publicClient.waitForTransactionReceipt({ hash });
+            console.log(`   ✅ Registered! Block: ${receipt.blockNumber}`);
+            console.log(`   🔗 Explorer: https://testnet.bscscan.com/tx/${hash}`);
+        }
+
+    } catch (error: any) {
+        console.error(`   ❌ Registration check failed: ${error.message}`);
+        console.log("   Continuing start-up sequence...");
     }
 
     console.log("");
@@ -152,8 +213,8 @@ async function main() {
         }
     });
 
-    server.listen(PORT, () => {
-        console.log(`🟢 Provider agent listening on http://localhost:${PORT}`);
+    server.listen(PORT, "0.0.0.0", () => {
+        console.log(`🟢 Provider agent listening on port ${PORT}`);
         console.log(`   POST /inference — send { "prompt": "..." } to get inference`);
         console.log(`   GET  /health    — check provider status`);
         console.log("\n⏳ Waiting for inference requests...\n");
