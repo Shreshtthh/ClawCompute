@@ -127,7 +127,7 @@ export function ChatPanel({ provider, onClose }: ChatPanelProps) {
                 ...prev,
                 {
                     role: "system",
-                    content: "📤 Sending inference request to provider…",
+                    content: `📤 Sending inference request to: ${provider.endpoint}`,
                 },
             ]);
 
@@ -264,8 +264,8 @@ export function ChatPanel({ provider, onClose }: ChatPanelProps) {
                         {msg.role !== "user" && (
                             <div
                                 className={`w-6 h-6 rounded-md flex items-center justify-center shrink-0 mt-0.5 ${msg.role === "assistant"
-                                        ? "bg-purple-500/20"
-                                        : "bg-white/5"
+                                    ? "bg-purple-500/20"
+                                    : "bg-white/5"
                                     }`}
                             >
                                 {msg.role === "assistant" ? (
@@ -277,10 +277,10 @@ export function ChatPanel({ provider, onClose }: ChatPanelProps) {
                         )}
                         <div
                             className={`max-w-[80%] rounded-xl px-4 py-2.5 text-sm leading-relaxed ${msg.role === "user"
-                                    ? "bg-gradient-to-r from-purple-600 to-purple-500 text-white"
-                                    : msg.role === "assistant"
-                                        ? "bg-white/5 border border-white/10 text-gray-200"
-                                        : "bg-transparent text-gray-500 text-xs italic"
+                                ? "bg-gradient-to-r from-purple-600 to-purple-500 text-white"
+                                : msg.role === "assistant"
+                                    ? "bg-white/5 border border-white/10 text-gray-200"
+                                    : "bg-transparent text-gray-500 text-xs italic"
                                 }`}
                         >
                             {msg.content}
