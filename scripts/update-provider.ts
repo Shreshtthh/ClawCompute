@@ -9,8 +9,11 @@ import { parseEther } from "viem";
 
 async function main() {
     const newEndpoint = process.argv[2];
+    const targetId = process.argv[3] ? BigInt(process.argv[3]) : null;
+
     if (!newEndpoint) {
-        console.error("❌ Usage: npx tsx scripts/update-provider.ts <NEW_ENDPOINT_URL>");
+        console.error("❌ Usage: npx tsx scripts/update-provider.ts <NEW_ENDPOINT_URL> [PROVIDER_ID]");
+        console.error("   If PROVIDER_ID is omitted, updates the most recent provider.");
         process.exit(1);
     }
 
@@ -37,8 +40,8 @@ async function main() {
         process.exit(1);
     }
 
-    // Update the last registered provider (most recent)
-    const providerId = providerIds[providerIds.length - 1];
+    // Use specified ID or fall back to last registered provider
+    const providerId = targetId ?? providerIds[providerIds.length - 1];
 
     // Fetch current details to preserve price/model
     const provider = await publicClient.readContract({

@@ -98,10 +98,20 @@ async function main() {
                     console.log(`   ✅ Found active provider #${pid} for model '${MODEL_NAME}'`);
 
                     // Check if we need to update params
+                    const isLocalEndpoint = ENDPOINT_URL.includes("localhost") || ENDPOINT_URL.includes("127.0.0.1");
+                    const isRemoteExisting = !pEndpoint.includes("localhost") && !pEndpoint.includes("127.0.0.1");
+
                     if (pPrice !== priceWei || pEndpoint !== ENDPOINT_URL) {
-                        console.log(`   ⚠️ Config changed! On-chain: ${pEndpoint} @ ${formatEther(pPrice)} BNB`);
-                        console.log(`   🆕 New Config:   ${ENDPOINT_URL} @ ${PRICE_PER_SECOND} BNB`);
-                        needsUpdate = true;
+                        // SAFETY: Don't overwrite a deployed remote URL with localhost!
+                        if (isLocalEndpoint && isRemoteExisting) {
+                            console.log(`   🛡️ SKIPPING update: on-chain endpoint is remote (${pEndpoint})`);
+                            console.log(`      Won't overwrite with localhost. Set ENDPOINT_URL env var to force.`);
+                            // Leave needsUpdate = false, keep the remote endpoint
+                        } else {
+                            console.log(`   ⚠️ Config changed! On-chain: ${pEndpoint} @ ${formatEther(pPrice)} BNB`);
+                            console.log(`   🆕 New Config:   ${ENDPOINT_URL} @ ${PRICE_PER_SECOND} BNB`);
+                            needsUpdate = true;
+                        }
                     }
                     break;
                 }

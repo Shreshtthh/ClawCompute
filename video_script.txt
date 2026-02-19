@@ -1,0 +1,130 @@
+CLAWCOMPUTE DEMO SCRIPT (3-4 Minutes)
+
+Target Audience: Hackathon Judges & Developers
+Goal: Show, don't just tell. Prove it works live on-chain.
+
+----------------------------------------------------------------
+
+0:00 — THE HOOK (15s)
+
+VISUAL:
+- Start with a blank black screen or simple title card: "The $20 Problem".
+- Cut to: Screenshot of a monthly subscription invoice (like ChatGPT Plus or Claude Pro).
+
+AUDIO:
+"You're paying $20 a month for AI subscriptions. But today, your agent only needs 11 seconds of compute."
+"That wasted capital is the problem. ClawCompute is the solution."
+
+VISUAL:
+- Hard cut to: ClawCompute Dashboard loading up (animated entry).
+
+----------------------------------------------------------------
+
+0:15 — ACT 1: THE MARKETPLACE (30s)
+
+VISUAL:
+- ClawCompute Dashboard (Full Screen).
+- Mouse hovers over the "Live" indicator on a provider card.
+- Zoom in on: "Price: 0.0001 tBNB/s".
+
+AUDIO:
+"Welcome to ClawCompute — the first decentralized marketplace for autonomous AI compute on BNB Chain."
+"Every provider you see here is a real node, registered on-chain. They aren't selling subscriptions. They're selling time."
+"I can pick any model — Llama 3, Mixtral — and pay only for the seconds I use."
+
+----------------------------------------------------------------
+
+0:45 — ACT 2: OPENING THE STREAM (45s)
+
+VISUAL:
+- Click "Chat" on a provider.
+- Type prompt: "Explain the utility of BNB Chain in 50 words."
+- Click Send.
+- IMPORTANT: Show the MetaMask popup clearly. Mouse over the "Confirm" button.
+
+AUDIO:
+"Watch closely. I'm not sending a flat fee. I'm opening a payment stream via the StreamPay smart contract."
+"Money starts flowing the moment the stream opens. It's permissionless. Trustless. And live on BSC Testnet."
+
+VISUAL:
+- Show "Creating payment stream..." loading state.
+- Transaction confirms -> Toast notification: "Stream #42 Created".
+
+----------------------------------------------------------------
+
+1:30 — ACT 3: THE MAGIC MOMENT (45s)
+
+VISUAL:
+- Split Screen (if possible) or fast switch:
+  - Left: Frontend showing "Sending inference request..."
+  - Right: BSCScan showing the createStream transaction you just made.
+
+AUDIO:
+"The provider agent — running autonomously on a Render node — detects the on-chain stream."
+"It verifies the funds are flowing, fires up the Llama 3 model via Groq, and generates the response."
+
+VISUAL:
+- Markdown response streams in on the frontend (highlight the rich formatting!).
+- Pause for effect while text generates.
+
+----------------------------------------------------------------
+
+2:15 — ACT 4: SETTLEMENT & REFUND (30s)
+
+VISUAL:
+- Response finishes.
+- Toast notification: "Stream Cancelled. Refund processed."
+- Click the Tx Link ("Cancel") to open BSCScan.
+- Highlight the Internal Txns or "Tokens Transferred" tab showing the refund.
+
+AUDIO:
+"Response delivered. Stream cancelled immediately."
+"Here's the beautiful part. I locked 60 seconds of funds. The inference took 4.2 seconds."
+"The contract paid the provider exactly for 4.2 seconds, and instantly refunded me the rest. Zero waste."
+
+----------------------------------------------------------------
+
+2:45 — ACT 5: UNDER THE HOOD (30s)
+
+VISUAL:
+- Switch to Terminal (dark mode). show `npx tsx agent/provider-agent.ts` logs scrolling.
+- Highlight a log line: "Withdrawing 0.00042 BNB from stream #42".
+
+AUDIO:
+"This isn't a mockup. There is a real provider agent listening on Render right now."
+"It's handling discovery, inference, and payment settlement entirely via code. No humans involved."
+
+----------------------------------------------------------------
+
+3:15 — ACT 6: AI-POWERED BUILD (20s)
+
+VISUAL:
+- Quickly scroll through your ailogs/ folder in VS Code.
+- Open 02-smart-contracts.md and scroll through the design reasoning.
+
+AUDIO:
+"And the best part? This entire project — contracts, agents, frontend — was built with AI-assisted development."
+"From ideation to deployment, every architectural decision is documented in our AI Build Logs."
+
+----------------------------------------------------------------
+
+3:35 — OUTRO (15s)
+
+VISUAL:
+- Back to Dashboard.
+- Pop up the "Connect Wallet" modal one last time to show the address.
+- Fade to black with GitHub Repo URL and Live Demo URL.
+
+AUDIO:
+"ClawCompute is live on BSC Testnet. The autonomous agent economy is here. You can try it right now at the link below."
+"Thanks for watching."
+
+----------------------------------------------------------------
+
+PRODUCTION TIPS
+
+1. Resolution: Record in 1080p (1920x1080).
+2. Clean Browser: Hide your bookmarks bar and extensions. Use a fresh Chrome profile or Incognito window.
+3. Pre-Fund: Ensure your wallet has enough tBNB so you don't get "insufficient funds" errors.
+4. Zoom: Zoom in on the browser (110% or 125%) so text is readable on mobile screens.
+5. Audio: Record audio AFTER capturing video. It's much easier to time your voice to the video than vice-versa.
