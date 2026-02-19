@@ -12,6 +12,8 @@ AI-assisted pair programming was used throughout the project to accelerate desig
 | [02 — Smart Contracts](02-smart-contracts.md) | Feb 14, 2026 | ComputeRegistry + StreamPay contract development |
 | [03 — Agent Development](03-agent-development.md) | Feb 14, 2026 | Provider and Consumer agent implementation |
 | [04 — Deployment & Demo](04-deployment-demo.md) | Feb 18, 2026 | BSC Testnet deployment, end-to-end demo execution |
+| [05 — Frontend Dashboard](05-frontend-dashboard.md) | Feb 18–19, 2026 | Next.js marketplace UI, Wagmi integration, Vercel deployment |
+| [06 — Production Hardening](06-production-hardening.md) | Feb 19, 2026 | Multi-agent support, endpoint debugging, documentation |
 
 ## Development Approach
 

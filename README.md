@@ -132,6 +132,8 @@ This project leveraged **AI-assisted development** (powered by Google DeepMind's
 | [02 — Contracts](ailogs/02-smart-contracts.md) | Developing `ComputeRegistry` and `StreamPay` logic |
 | [03 — Agents](ailogs/03-agent-development.md) | Implementing the Provider and Consumer agent logic |
 | [04 — Deployment](ailogs/04-deployment-demo.md) | BSC Testnet deployment and end-to-end verification |
+| [05 — Frontend](ailogs/05-frontend-dashboard.md) | Next.js dashboard, Wagmi integration, Vercel deployment |
+| [06 — Hardening](ailogs/06-production-hardening.md) | Multi-agent support, debugging, documentation |
 
 ---
 
